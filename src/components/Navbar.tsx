@@ -3,20 +3,18 @@ import {
   Box,
   Flex,
   Grid,
-  Text,
   IconButton,
   Button,
   Stack,
   Collapse,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Center,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
-
+import Logo from './Logo';
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
   return (
@@ -57,15 +55,7 @@ const Navbar = () => {
             justify={{ base: 'center', md: 'start' }}
           >
             <Center>
-              <Text
-                textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                fontFamily={'sans-serif'}
-                fontWeight={'bold'}
-                fontSize={36}
-                color={useColorModeValue('green.500', 'white')}
-              >
-                Fruity
-              </Text>
+              <Logo color={useColorModeValue('gray.700', 'white')} />
             </Center>
           </Flex>
           <Flex display={{ base: 'none', md: 'flex' }}>

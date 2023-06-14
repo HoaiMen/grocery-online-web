@@ -16,11 +16,12 @@ const DesktopNav = () => {
       {navbarItems.map((navItem: NavItem) => (
         <Box key={navItem.label}>
           <Link
+            rounded="lg"
             px={8}
             py={2}
             as={NavLink}
             to={navItem.href}
-            _activeLink={path === navItem.href ? { bg: 'orange' } : {}}
+            _activeLink={path === navItem.href ? { bg: 'orange.200' } : {}}
             fontSize={'sm'}
             fontWeight={500}
             color={linkColor}

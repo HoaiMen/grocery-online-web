@@ -21,3 +21,22 @@ export const navbarItems: NavItem[] = [
     href: '/contact',
   },
 ];
+
+export const navProductItems: NavItem[] = [
+  {
+    label: 'New',
+    href: '/',
+  },
+  {
+    label: 'Hot',
+    href: '/',
+  },
+  {
+    label: 'On sale',
+    href: '/',
+  },
+  {
+    label: 'Popular',
+    href: '/',
+  },
+];

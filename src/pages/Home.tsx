@@ -6,16 +6,20 @@ import {
   Text,
   Image,
   useColorModeValue,
-  Stack,
   Button,
+  SimpleGrid,
+  AbsoluteCenter,
 } from '@chakra-ui/react';
-import { ArrowForwardIcon, EmailIcon } from '@chakra-ui/icons';
+import { AiFillApple, AiFillGoogleSquare } from 'react-icons/ai';
+import ProductCard from '../components/ProductCard';
+import NavProduct from '../components/NavProduct';
+import Paginate from '../components/Pagination';
 const Home = () => {
   return (
     <DefaultLayout>
       <Box w="100%">
-        <HStack justify={'space-between'}>
-          <Box w="60%" p="12" bg="blue.100">
+        <HStack justify={'space-between'} bg="green.50">
+          <Box w="60%" px="4">
             <Text
               fontFamily={'sans-serif'}
               fontWeight={'bold'}
@@ -37,30 +41,40 @@ const Home = () => {
               a sodales lectus. In malesuada ipsum vitae lectus fermentum
               vehicula.
             </Text>
-            <Stack direction="row" spacing={4} pt="8">
-              <Button
-                leftIcon={<EmailIcon />}
-                colorScheme="teal"
-                variant="solid"
-                p="8"
-              >
-                <Box textAlign="left" p={4}>
-                  <Text>Available on the</Text>
-                  <Text>App Story</Text>
-                </Box>
-              </Button>
-              <Button
-                leftIcon={<EmailIcon />}
-                colorScheme="teal"
-                variant="solid"
-                p="8"
-              >
-                <Box textAlign="left" padding="4">
-                  <Text>Available on the</Text>
-                  <Text>App Story</Text>
-                </Box>
-              </Button>
-            </Stack>
+            <SimpleGrid columns={{ sm: 1, md: 2 }} pt="8">
+              <Box>
+                <Button
+                  bg="black"
+                  leftIcon={<AiFillApple size="2.5rem" color="white" />}
+                  colorScheme="teal"
+                  variant="solid"
+                  p="8"
+                >
+                  <Box textAlign="left" textColor="white" padding="4">
+                    <Text fontSize="xs" textColor="gray">
+                      Available on the
+                    </Text>
+                    <Text>App Story</Text>
+                  </Box>
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  leftIcon={<AiFillGoogleSquare size="2.5rem" color="white" />}
+                  colorScheme="teal"
+                  bg="black"
+                  variant="solid"
+                  p="8"
+                >
+                  <Box textAlign="left" padding="4" textColor="white">
+                    <Text fontSize="xs" textColor="gray">
+                      Get it on
+                    </Text>
+                    <Text>Google Play</Text>
+                  </Box>
+                </Button>
+              </Box>
+            </SimpleGrid>
           </Box>
           <Box
             bgGradient="linear(to-t, green.300, orange.400)"
@@ -75,6 +89,28 @@ const Home = () => {
             />
           </Box>
         </HStack>
+        <Box>
+          <NavProduct />
+        </Box>
+        <SimpleGrid columns={[2, null, 3]} spacing="60px">
+          <ProductCard />
+        </SimpleGrid>
+        <Box w="100%" py="12">
+          <Box position="relative" bg="orange">
+            <AbsoluteCenter bg="tomato" color="white" axis="both">
+              <Paginate
+                page={0}
+                count={0}
+                pageSize={0}
+                // onPageChange={function (page: number) {
+                //   throw new Error('Function not implemented.');
+                // }}
+                fontWeight={'bold'}
+                borderRadius={'base'}
+              />
+            </AbsoluteCenter>
+          </Box>
+        </Box>
       </Box>
     </DefaultLayout>
   );

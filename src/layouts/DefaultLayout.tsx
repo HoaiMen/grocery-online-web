@@ -11,7 +11,7 @@ const DefaultLayout: React.FC<IDefaultProps> = ({ children }) => {
       <Box>
         <Navbar />
       </Box>
-      <Box px={14} py={4}>
+      <Box mx={14} py={4}>
         {children}
       </Box>
       <Box>
