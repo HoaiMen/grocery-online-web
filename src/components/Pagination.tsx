@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, HStack, IconButton, Stack, Flex } from '@chakra-ui/react';
+import { Button, HStack, IconButton, Stack } from '@chakra-ui/react';
 
 import { ChevronRightIcon, ChevronLeftIcon } from '@chakra-ui/icons';
 import { PaginateProps } from '../types/Paginate';

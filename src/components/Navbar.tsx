@@ -1,4 +1,5 @@
 import React from 'react';
+import { BsFillCartPlusFill } from 'react-icons/bs';
 import {
   Box,
   Flex,
@@ -15,6 +16,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import Logo from './Logo';
+import { NavLink } from 'react-router-dom';
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
   return (
@@ -69,15 +71,15 @@ const Navbar = () => {
             direction={'row'}
             spacing={6}
           >
-            <Button
-              as={'a'}
-              fontSize={'sm'}
-              fontWeight={400}
-              variant={'link'}
-              href={'#'}
-            >
-              Sign In
-            </Button>
+            <IconButton
+              size={'md'}
+              icon={<BsFillCartPlusFill />}
+              aria-label={'Open Cart'}
+              as={NavLink}
+              to={'/cart'}
+              // onClick={navigator}
+            />
+
             <Button
               as={'a'}
               display={{ base: 'none', md: 'inline-flex' }}
@@ -85,12 +87,12 @@ const Navbar = () => {
               fontWeight={600}
               color={'white'}
               bg={'pink.400'}
-              href={'#'}
+              href={'/signIn'}
               _hover={{
                 bg: 'pink.300',
               }}
             >
-              Sign Up
+              Sign In
             </Button>
           </Stack>
         </Grid>

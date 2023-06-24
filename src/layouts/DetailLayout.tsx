@@ -1,21 +1,17 @@
 import React, { ReactElement } from 'react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import { Box } from '@chakra-ui/react';
-type IDefaultProps = {
+type IDetailProps = {
   children: ReactElement;
 };
-const DefaultLayout: React.FC<IDefaultProps> = ({ children }) => {
+const DetailLayout: React.FC<IDetailProps> = ({ children }) => {
   return (
     <React.Fragment>
       <Box>
         <Navbar />
       </Box>
       <Box mx={14}>{children}</Box>
-      <Box>
-        <Footer />
-      </Box>
     </React.Fragment>
   );
 };
-export default DefaultLayout;
+export default DetailLayout;

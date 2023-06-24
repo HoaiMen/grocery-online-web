@@ -5,14 +5,20 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import List from './pages/List';
+import ProductDetail from './pages/ProductDetail';
+import SignIn from './pages/SignIn';
+import Cart from './pages/Cart';
 
 function App() {
   return (
     <Routes>
       <Route path={'/'} element={<Home />}></Route>
+      <Route path="/product-detail/:id" element={<ProductDetail />} />
       <Route path={'/about'} element={<About />}></Route>
       <Route path={'/list'} element={<List />}></Route>
       <Route path={'/contact'} element={<Contact />}></Route>
+      <Route path={'/signIn'} element={<SignIn />}></Route>
+      <Route path={'/cart'} element={<Cart />}></Route>
     </Routes>
   );
 }

@@ -26,6 +26,7 @@ const NavProduct = () => {
           display={{ md: 'none' }}
           onClick={isOpen ? onClose : onOpen}
         />
+        {/* Navbar */}
         <HStack spacing={8} alignItems={'center'}>
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
             {navProductItems.map((navProductItem: NavItem) => (
@@ -48,6 +49,7 @@ const NavProduct = () => {
             ))}
           </HStack>
         </HStack>
+        {/* option */}
         <Flex alignItems={'center'}>
           <Select variant="filled">
             <option value="option1">All Product</option>

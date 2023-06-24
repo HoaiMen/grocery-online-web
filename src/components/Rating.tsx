@@ -23,7 +23,9 @@ const Rating = ({ rating, numReviews }: RatingProps) => {
             );
           }
           if (roundedRating - i === 0.5) {
-            return <BsStarHalf key={i} style={{ marginLeft: '1' }} />;
+            return (
+              <BsStarHalf key={i} color="orange" style={{ marginLeft: '1' }} />
+            );
           }
           return <BsStar key={i} color="orange" style={{ marginLeft: '1' }} />;
         })}
