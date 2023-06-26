@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Stack,
-  Button,
   Flex,
   SimpleGrid,
   TabList,
@@ -18,9 +17,10 @@ import {
 
 import CardProduct from './Card';
 import { Product } from '../types/products.type';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getProducts } from '../api/Product.api';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { CartContext } from '../contexts/AppContext';
 
 const tabs = ['All', 'New', 'Hot', 'On Sale', 'Popular'];
 
@@ -29,9 +29,10 @@ const AllProducts = () => {
   const [type, setType] = useState('All');
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState<string | number>(1);
+  const { cart, setCart, count, setCount } = useContext(CartContext);
 
   const navigate = useNavigate();
-  const handle = (id: string | number) => {
+  const handleView = (id: string | number) => {
     navigate(`/product-detail/${id}`);
   };
 
@@ -63,6 +64,17 @@ const AllProducts = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleAddCart = (item: Product) => {
+    if (cart.indexOf(item) !== -1) return;
+    setCart((prev: Product[]) => {
+      const newProduct = [...prev, item];
+      const jsonCart = JSON.stringify(newProduct);
+      localStorage.setItem('cart', jsonCart);
+      return newProduct;
+    });
+    setCount(count + 1);
   };
 
   useEffect(() => {
@@ -100,7 +112,11 @@ const AllProducts = () => {
               <SimpleGrid columns={[2, null, 3]} spacing="50px">
                 {products.map((item) => (
                   <Box key={item.id}>
-                    <CardProduct product={item} click={() => handle(item.id)} />
+                    <CardProduct
+                      product={item}
+                      handleView={() => handleView(item.id)}
+                      handleAdd={() => handleAddCart(item)}
+                    />
                   </Box>
                 ))}
               </SimpleGrid>

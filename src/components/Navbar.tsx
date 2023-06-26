@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BsFillCartPlusFill } from 'react-icons/bs';
 import {
   Box,
@@ -11,17 +11,20 @@ import {
   useColorModeValue,
   useDisclosure,
   Center,
+  Text,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import Logo from './Logo';
 import { NavLink } from 'react-router-dom';
+import { CartContext } from '../contexts/AppContext';
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const { count } = useContext(CartContext);
   return (
     <React.Fragment>
-      <Box bg={'orange.200'}>
+      <Box>
         <Grid
           templateColumns="repeat(3, 1fr)"
           gap={6}
@@ -71,23 +74,38 @@ const Navbar = () => {
             direction={'row'}
             spacing={6}
           >
-            <IconButton
-              size={'md'}
-              icon={<BsFillCartPlusFill />}
-              aria-label={'Open Cart'}
-              as={NavLink}
-              to={'/cart'}
-              // onClick={navigator}
-            />
+            <Flex>
+              <IconButton
+                zIndex="1"
+                size={'md'}
+                icon={<BsFillCartPlusFill />}
+                aria-label={'Open Cart'}
+                as={NavLink}
+                to={'/cart'}
+                // onClick={navigator}
+              />
+              <Box ml="-1.5" mt="-1.5" zIndex="2">
+                <Text
+                  bg="green.400"
+                  rounded={'full'}
+                  w="5"
+                  h="6"
+                  align="center"
+                  textColor="white"
+                >
+                  {count}
+                </Text>
+              </Box>
+            </Flex>
 
             <Button
-              as={'a'}
               display={{ base: 'none', md: 'inline-flex' }}
               fontSize={'sm'}
               fontWeight={600}
               color={'white'}
               bg={'pink.400'}
-              href={'/signIn'}
+              as={NavLink}
+              to={'/signIn'}
               _hover={{
                 bg: 'pink.300',
               }}

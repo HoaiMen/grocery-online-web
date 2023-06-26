@@ -14,6 +14,7 @@ interface PriceTagProps {
   rootProps?: StackProps;
   priceProps?: TextProps;
   salePriceProps?: TextProps;
+  colorr?: string;
 }
 
 export type FormatPriceOptions = { locale?: string; currency?: string };
@@ -32,11 +33,18 @@ export function formatPrice(
 }
 
 export const PriceTag = (props: PriceTagProps) => {
-  const { price, currency, salePrice, rootProps, priceProps, salePriceProps } =
-    props;
+  const {
+    price,
+    currency,
+    salePrice,
+    rootProps,
+    priceProps,
+    salePriceProps,
+    colorr,
+  } = props;
   return (
     <HStack spacing="1" {...rootProps}>
-      <Price isOnSale={!!salePrice} textProps={priceProps}>
+      <Price isOnSale={!!salePrice} textProps={priceProps} colorz={colorr}>
         {formatPrice(price, { currency })}
       </Price>
       {salePrice && (
@@ -52,18 +60,19 @@ interface PriceProps {
   children?: ReactNode;
   isOnSale?: boolean;
   textProps?: TextProps;
+  colorz?: string;
 }
 
 const Price = (props: PriceProps) => {
-  const { isOnSale, children, textProps } = props;
-  const defaultColor = mode('gray.700', 'gray.400');
+  const { isOnSale, children, textProps, colorz } = props;
+  const defaultColor = mode('gray.200', 'gray.200');
   const onSaleColor = mode('gray.400', 'gray.700');
   const color = isOnSale ? onSaleColor : defaultColor;
   return (
     <Text
       as="span"
       fontWeight="medium"
-      color={color}
+      color={colorz}
       textDecoration={isOnSale ? 'line-through' : 'none'}
       {...textProps}
     >

@@ -60,7 +60,9 @@ const ProductDetail = () => {
     | 'rating'
     | 'numReviews'
   > | null>(null);
+  console.log('product:', product);
   const [image, setImage] = useState(product?.imageURL[0]);
+  console.log('image', image);
   const OverlayOne = () => (
     <ModalOverlay
       bg="whiteAlpha.50"
@@ -106,30 +108,33 @@ const ProductDetail = () => {
               alignItems="center"
             >
               {/* img */}
-              <Box
-                width={{ base: '100%', sm: '85%' }}
-                zIndex="2"
-                marginLeft={{ base: '0', sm: '5%' }}
-                marginTop="5%"
-              >
-                <Link
-                  textDecoration="none"
-                  _hover={{ textDecoration: 'none' }}
-                  onClick={() => {
-                    setOverlay(<OverlayOne />);
-                    onOpen();
-                  }}
+              {product && product?.imageURL.length > 0 && (
+                <Box
+                  width={{ base: '100%', sm: '85%' }}
+                  zIndex="2"
+                  marginLeft={{ base: '0', sm: '5%' }}
+                  marginTop="5%"
                 >
-                  <Image
-                    h="330px"
-                    width="650px"
-                    borderRadius="lg"
-                    src={image}
-                    alt="some good alt text"
-                    objectFit="cover"
-                  />
-                </Link>
-              </Box>
+                  <Link
+                    textDecoration="none"
+                    _hover={{ textDecoration: 'none' }}
+                    onClick={() => {
+                      setOverlay(<OverlayOne />);
+                      onOpen();
+                    }}
+                  >
+                    <Image
+                      h="330px"
+                      width="650px"
+                      borderRadius="lg"
+                      src={image}
+                      alt="some good alt text"
+                      objectFit="cover"
+                    />
+                  </Link>
+                </Box>
+              )}
+
               {/* background */}
               <Box zIndex="1" width="100%" position="absolute" height="100%">
                 <Box

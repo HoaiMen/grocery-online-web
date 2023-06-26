@@ -1,26 +1,25 @@
 import React from 'react';
 import {
   Box,
-  HStack,
-  Icon,
   Image,
-  Link,
   Stack,
   Text,
+  HStack,
   useColorModeValue as mode,
 } from '@chakra-ui/react';
-import { FiGift } from 'react-icons/fi';
+import { PriceTag } from './PriceTag';
 
 export type CartProductMetaProps = {
-  isGiftWrapping?: boolean;
   name: string;
-  description: string;
   image: string;
   category: string;
+  price: number;
+  currency: string;
+  quantity: number;
 };
 
 export const CartProductMeta = (props: CartProductMetaProps) => {
-  const { isGiftWrapping = true, image, name, description, category } = props;
+  const { image, name, price, currency, category, quantity } = props;
   return (
     <Stack direction="row" spacing="5" width="full">
       <Image
@@ -36,25 +35,14 @@ export const CartProductMeta = (props: CartProductMetaProps) => {
       <Box pt="4">
         <Stack spacing="0.5">
           <Text fontWeight="medium">{name}</Text>
-          <Text
-            noOfLines={1}
-            color={mode('gray.600', 'gray.400')}
-            fontSize="sm"
-          >
-            {description}
-          </Text>
           <Text color={mode('gray.600', 'gray.400')} fontSize="sm">
             {category}
           </Text>
-        </Stack>
-        {isGiftWrapping && (
-          <HStack spacing="1" mt="3" color={mode('gray.600', 'gray.400')}>
-            <Icon as={FiGift} boxSize="4" />
-            <Link fontSize="sm" textDecoration="underline">
-              Add gift wrapping
-            </Link>
+          <HStack>
+            <PriceTag price={price} currency={currency} colorr="gray" />
+            <Text>/{quantity}gram</Text>
           </HStack>
-        )}
+        </Stack>
       </Box>
     </Stack>
   );

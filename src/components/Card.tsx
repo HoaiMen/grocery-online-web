@@ -18,9 +18,14 @@ import Rating from './Rating';
 import { Product } from '../types/products.type';
 type ICardProp = {
   product: Product;
-  click?: () => void;
+  handleAdd?: () => void;
+  handleView?: () => void;
 };
-const CardProduct: React.FC<ICardProp> = ({ product, click }) => {
+const CardProduct: React.FC<ICardProp> = ({
+  product,
+  handleAdd,
+  handleView,
+}) => {
   return (
     <Card maxW="sm">
       <CardBody>
@@ -28,7 +33,7 @@ const CardProduct: React.FC<ICardProp> = ({ product, click }) => {
           <Link
             textDecoration="none"
             _hover={{ textDecoration: 'none' }}
-            onClick={click}
+            onClick={handleView}
           >
             <Image
               transform="scale(1.0)"
@@ -70,10 +75,20 @@ const CardProduct: React.FC<ICardProp> = ({ product, click }) => {
       </CardBody>
       <CardFooter pt={-2}>
         <SimpleGrid columns={[1, null, 2]} spacing={8} w="full">
-          <Button variant="solid" colorScheme="green" w="100%" onClick={click}>
+          <Button
+            variant="solid"
+            colorScheme="green"
+            w="100%"
+            onClick={handleAdd}
+          >
             Add to cart
           </Button>
-          <Button variant="solid" colorScheme="green" w="100%" onClick={click}>
+          <Button
+            variant="solid"
+            colorScheme="green"
+            w="100%"
+            onClick={handleView}
+          >
             View detail
           </Button>
         </SimpleGrid>

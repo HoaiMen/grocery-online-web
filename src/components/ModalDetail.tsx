@@ -7,7 +7,6 @@ import {
   ModalHeader,
   ModalBody,
   Text,
-  ModalFooter,
   useColorModeValue,
   List,
   Divider,
@@ -56,11 +55,11 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
     <>
       <Modal isCentered isOpen={open} onClose={close} size="4xl">
         {overlayy}
-        <ModalContent>
+        <ModalContent backgroundColor="orange.200">
           <ModalHeader>Stories by Chakra Templates</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Container maxW={'7xl'} p="12" bg="teal.100">
+          <ModalBody mb={8}>
+            <Container maxW={'7xl'} p="8" bg="white" rounded="md">
               <Box
                 marginTop={{ base: '1', sm: '5' }}
                 display="flex"
@@ -87,6 +86,7 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
                     >
                       <Image
                         width="full"
+                        height="270px"
                         borderRadius="lg"
                         src={product?.imageURL[0]}
                         alt="some good alt text"
@@ -107,7 +107,6 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
                     />
                   </Box>
                 </Box>
-
                 <Box
                   display="flex"
                   flex="1"
@@ -173,9 +172,6 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
               </Box>
             </Container>
           </ModalBody>
-          <ModalFooter>
-            <Button onClick={close}>Close</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

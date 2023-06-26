@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import AppContextProvider from './contexts/AppContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <ChakraProvider>
     <Router>
-      <App />
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
     </Router>
   </ChakraProvider>
 );
