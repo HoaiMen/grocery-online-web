@@ -29,7 +29,7 @@ const AllProducts = () => {
   const [type, setType] = useState('All');
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState<string | number>(1);
-  const { cart, setCart, count, setCount } = useContext(CartContext);
+  const { handleAddCart } = useContext(CartContext);
 
   const navigate = useNavigate();
   const handleView = (id: string | number) => {
@@ -64,17 +64,6 @@ const AllProducts = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleAddCart = (item: Product) => {
-    if (cart.indexOf(item) !== -1) return;
-    setCart((prev: Product[]) => {
-      const newProduct = [...prev, item];
-      const jsonCart = JSON.stringify(newProduct);
-      localStorage.setItem('cart', jsonCart);
-      return newProduct;
-    });
-    setCount(count + 1);
   };
 
   useEffect(() => {

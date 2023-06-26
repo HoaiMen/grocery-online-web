@@ -9,27 +9,38 @@ type CartItemProps = {
   category: string;
   description: string;
   quantity: number;
+  count: number;
   price: number;
+  totalPrice: number;
   currency: string;
   imageUrl: string;
   onChangeQuantity?: (quantity: number) => void;
   onClickGiftWrapping?: () => void;
   onClickDelete?: () => void;
+  onIncreate: () => void;
+  onDecreate: () => void;
 };
 type IQuantityProps = {
   clickIn: () => void;
   clickDis: () => void;
   value: number;
+  quantity: number;
 };
 const QuantitySelect: React.FC<IQuantityProps> = ({
   clickDis,
   clickIn,
   value,
+  quantity,
 }) => {
   return (
     <Flex>
       <Button onClick={clickDis}>-</Button>
-      <Input htmlSize={4} width="auto" value={value} readOnly />
+      <Input
+        htmlSize={4}
+        width="auto"
+        value={`${value * quantity}gram`}
+        readOnly
+      />
       <Button onClick={clickIn}>+</Button>
     </Flex>
   );
@@ -40,21 +51,17 @@ export const CartItem = (props: CartItemProps) => {
     name,
     category,
     quantity,
+    count,
     imageUrl,
     currency,
     price,
     onChangeQuantity,
     onClickDelete,
+    totalPrice,
+    onIncreate,
+    onDecreate,
   } = props;
 
-  const { quantityy, setQuantityy } = useContext(CartContext);
-  console.log(quantityy);
-  const handleInc = () => {
-    setQuantityy(quantityy + 1);
-  };
-  const handleDic = () => {
-    setQuantityy(quantityy - 1);
-  };
   return (
     <Flex
       direction={{ base: 'column', md: 'row' }}
@@ -77,11 +84,12 @@ export const CartItem = (props: CartItemProps) => {
         display={{ base: 'none', md: 'flex' }}
       >
         <QuantitySelect
-          clickIn={() => handleDic}
-          clickDis={() => onChangeQuantity}
-          value={quantityy}
+          clickIn={onIncreate}
+          clickDis={onDecreate}
+          value={count}
+          quantity={quantity}
         />
-        <PriceTag price={price * quantityy} currency={currency} />
+        <PriceTag price={totalPrice} currency={currency} />
         <CloseButton
           aria-label={`Delete ${name} from cart`}
           onClick={onClickDelete}
@@ -100,9 +108,10 @@ export const CartItem = (props: CartItemProps) => {
           Delete
         </Link>
         <QuantitySelect
-          clickIn={() => handleDic}
-          clickDis={() => handleInc}
-          value={quantityy}
+          clickIn={onIncreate}
+          clickDis={onDecreate}
+          value={count}
+          quantity={quantity}
         />
         {/* <QuantitySelect
           value={quantity}
@@ -110,7 +119,7 @@ export const CartItem = (props: CartItemProps) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}
         /> */}
-        <PriceTag price={price * quantityy} currency={currency} />
+        <PriceTag price={totalPrice} currency={currency} />
       </Flex>
     </Flex>
   );

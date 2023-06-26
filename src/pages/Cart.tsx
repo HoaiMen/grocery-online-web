@@ -16,24 +16,46 @@ import { CartContext } from '../contexts/AppContext';
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const { cart, setCart, quantityy, count, setCount } = useContext(CartContext);
-  console.log('cart: ', cart);
 
   const handleRemove = (id: string | number) => {
-    console.log('cart: ', cart);
-
     const arr = cart.filter((item) => item.id !== id);
-    console.log('arr:', arr);
     setCart(arr);
+    localStorage.setItem('cart', JSON.stringify(arr));
     setCount(count - 1);
     handleTotal();
   };
 
   const handleTotal = () => {
     let ans = 0;
-    cart.map((item) => (ans += quantityy * item.price));
+    for (const item of cart) {
+      ans += item.totalPrice;
+    }
     setTotal(ans);
   };
 
+  const increateMountProduct = (index: number) => {
+    const fakeCart = [...cart];
+    fakeCart[index].count++;
+    fakeCart[index].totalPrice = fakeCart[index].price * fakeCart[index].count;
+    setCart([...fakeCart]);
+    localStorage.setItem('cart', JSON.stringify(fakeCart));
+  };
+
+  const decreateMountProduct = (index: number) => {
+    const fakeCart = [...cart];
+    fakeCart[index].count--;
+    if (fakeCart[index].count === 0) {
+      fakeCart.splice(index, 1);
+      setCount((prev) => prev - 1);
+      setCart([...fakeCart]);
+    } else {
+      fakeCart[index].totalPrice =
+        fakeCart[index].price * fakeCart[index].count;
+      setCart([...fakeCart]);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(fakeCart));
+  };
   // const handleChange = (item: Product, d: number) => {
   //   const ind = cart.indexOf(item);
   //   const arr = cart;
@@ -47,7 +69,8 @@ const Cart = () => {
 
   useEffect(() => {
     handleTotal();
-  });
+  }, [cart]);
+
   return (
     <DetailLayout>
       <Box
@@ -72,13 +95,16 @@ const Cart = () => {
                   key={index}
                   description={item.content}
                   quantity={item.quantity}
+                  count={item.count}
                   currency={item.currency}
                   imageUrl={item.imageURL[0]}
                   name={item.name}
                   category={item.category}
+                  totalPrice={item.totalPrice}
                   price={item.price}
                   onClickDelete={() => handleRemove(item.id)}
-                  // onChangeQuantity={() => handleChange}
+                  onIncreate={() => increateMountProduct(index)}
+                  onDecreate={() => decreateMountProduct(index)}
                 />
               ))}
             </Stack>
