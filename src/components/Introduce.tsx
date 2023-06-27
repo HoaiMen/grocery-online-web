@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiFillGoogleSquare, AiFillApple, AiFillAlert } from 'react-icons/ai';
+import { AiFillGoogleSquare, AiFillApple } from 'react-icons/ai';
 import {
   Container,
   Stack,
@@ -9,14 +9,13 @@ import {
   Text,
   Button,
   Image,
-  IconButton,
   useColorModeValue,
 } from '@chakra-ui/react';
 import Blob from './Blob';
 
 const Introduce = () => {
   return (
-    <Container maxW={'7xl'} bg="green.50">
+    <Container maxW={'full'} bg="green.50">
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}

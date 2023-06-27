@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Heading,
@@ -25,11 +25,12 @@ import '../style.css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import DetailLayout from '../layouts/DetailLayout';
-import { Product } from '../types/products.type';
+import { DetailProduct } from '../types/products.type';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../api/Product.api';
 import Rating from '../components/Rating';
 import ModalDetail from '../components/ModalDetail';
+import { CartContext } from '../contexts/AppContext';
 
 interface IBlogTags {
   tags: Array<string>;
@@ -50,29 +51,33 @@ const BlogTags: React.FC<IBlogTags> = (props) => {
 };
 
 const ProductDetail = () => {
-  const [product, setProduct] = useState<Pick<
-    Product,
-    | 'name'
-    | 'imageURL'
-    | 'content'
-    | 'price'
-    | 'category'
-    | 'rating'
-    | 'numReviews'
-  > | null>(null);
-  console.log('product:', product);
-  const [image, setImage] = useState(product?.imageURL[0]);
-  console.log('image', image);
+  const [product, setProduct] = useState<DetailProduct>({
+    name: '',
+    quantity: 0,
+    category: '',
+    price: 0,
+    id: 0,
+    imageURL: [],
+    content: '',
+    currency: '',
+    rating: 0,
+    numReviews: 0,
+  });
+
   const OverlayOne = () => (
     <ModalOverlay
       bg="whiteAlpha.50"
       backdropFilter="blur(5px) hue-rotate(10deg)"
     />
   );
-
+  const { handleAddCart } = useContext(CartContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = React.useState(<OverlayOne />);
+  const [image, setImage] = useState(product?.imageURL[5]);
+  const [overlay, setOverlay] = useState(<OverlayOne />);
   const param = useParams();
+
+  console.log('product:', product.imageURL);
+  console.log('image', image);
   const getProductDetail = async (id: string | number) => {
     try {
       const product = await getProduct(id);
@@ -81,7 +86,6 @@ const ProductDetail = () => {
       console.log(err);
     }
   };
-
   useEffect(() => {
     if (param.id) {
       getProductDetail(param.id);
@@ -90,9 +94,8 @@ const ProductDetail = () => {
 
   return (
     <DetailLayout>
-      <Container maxW={'7xl'} p="12">
+      <Container maxW={'full'} p="12">
         <ModalDetail open={isOpen} close={onClose} overlayy={overlay} />
-        <Heading as="h1">Stories by Chakra Templates</Heading>
         <Box
           marginTop={{ base: '1', sm: '5' }}
           display="flex"
@@ -108,33 +111,30 @@ const ProductDetail = () => {
               alignItems="center"
             >
               {/* img */}
-              {product && product?.imageURL.length > 0 && (
-                <Box
-                  width={{ base: '100%', sm: '85%' }}
-                  zIndex="2"
-                  marginLeft={{ base: '0', sm: '5%' }}
-                  marginTop="5%"
+              <Box
+                width={{ base: '100%', sm: '85%' }}
+                zIndex="2"
+                marginLeft={{ base: '0', sm: '5%' }}
+                marginTop="5%"
+              >
+                <Link
+                  textDecoration="none"
+                  _hover={{ textDecoration: 'none' }}
+                  onClick={() => {
+                    setOverlay(<OverlayOne />);
+                    onOpen();
+                  }}
                 >
-                  <Link
-                    textDecoration="none"
-                    _hover={{ textDecoration: 'none' }}
-                    onClick={() => {
-                      setOverlay(<OverlayOne />);
-                      onOpen();
-                    }}
-                  >
-                    <Image
-                      h="330px"
-                      width="650px"
-                      borderRadius="lg"
-                      src={image}
-                      alt="some good alt text"
-                      objectFit="cover"
-                    />
-                  </Link>
-                </Box>
-              )}
-
+                  <Image
+                    h="330px"
+                    width="650px"
+                    borderRadius="lg"
+                    src={image}
+                    alt="some good alt text"
+                    objectFit="cover"
+                  />
+                </Link>
+              </Box>
               {/* background */}
               <Box zIndex="1" width="100%" position="absolute" height="100%">
                 <Box
@@ -267,7 +267,13 @@ const ProductDetail = () => {
                 </ListItem>
               </List>
             </Box>
-            <Button variant="solid" colorScheme="green" w="50%" mt="14">
+            <Button
+              variant="solid"
+              colorScheme="green"
+              w="50%"
+              mt="14"
+              onClick={() => handleAddCart(product)}
+            >
               Add to cart
             </Button>
           </Box>

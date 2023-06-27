@@ -14,3 +14,23 @@ export interface Product {
   rating: number;
   numReviews: number;
 }
+
+export type DetailProduct = Pick<
+  Product,
+  | 'name'
+  | 'id'
+  | 'imageURL'
+  | 'content'
+  | 'price'
+  | 'category'
+  | 'quantity'
+  | 'currency'
+  | 'rating'
+  | 'numReviews'
+>;
+
+//export type BodyPost = Pick<Post, 'body' | 'title'>;
+// => {
+//     title: string;
+//      body: string;
+// }

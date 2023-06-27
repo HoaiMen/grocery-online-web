@@ -27,9 +27,9 @@ const CardProduct: React.FC<ICardProp> = ({
   handleView,
 }) => {
   return (
-    <Card maxW="sm">
+    <Card maxW="full" bg="cyan.200">
       <CardBody>
-        <Box borderRadius="lg" overflow="hidden">
+        <Box borderRadius="lg" bg="orange.100" overflow="hidden">
           <Link
             textDecoration="none"
             _hover={{ textDecoration: 'none' }}
@@ -40,7 +40,7 @@ const CardProduct: React.FC<ICardProp> = ({
               src={product.imageURL[0]}
               alt={`Picture of ${product.name}`}
               objectFit="cover"
-              h="230px"
+              h={{ base: '150px', md: '230px' }}
               width="100%"
               transition="0.3s ease-in-out"
               _hover={{
@@ -50,12 +50,12 @@ const CardProduct: React.FC<ICardProp> = ({
           </Link>
         </Box>
         <Stack mt="4" spacing="3">
-          <Flex display="flex" alignItems="baseline">
+          <Box w={{ base: '50%', md: '100%' }}>
             {product.isNew && <Status color="blue" lable="New" />}
             {product.isHot && <Status color="red" lable="Hot" />}
             {product.onSale && <Status color="green" lable="On Sale" />}
             {product.popular && <Status color="gray" lable="Popular" />}
-          </Flex>
+          </Box>
           <Heading size="md">{product.name}</Heading>
           <Text noOfLines={2} fontSize="sm">
             {product.content}

@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button, CloseButton, Flex, Link, Input } from '@chakra-ui/react';
 import { PriceTag } from './PriceTag';
 import { CartProductMeta } from './CartProductMeta';
-import { CartContext } from '../contexts/AppContext';
 
 type CartItemProps = {
   name: string;
@@ -14,8 +13,6 @@ type CartItemProps = {
   totalPrice: number;
   currency: string;
   imageUrl: string;
-  onChangeQuantity?: (quantity: number) => void;
-  onClickGiftWrapping?: () => void;
   onClickDelete?: () => void;
   onIncreate: () => void;
   onDecreate: () => void;
@@ -38,7 +35,7 @@ const QuantitySelect: React.FC<IQuantityProps> = ({
       <Input
         htmlSize={4}
         width="auto"
-        value={`${value * quantity}gram`}
+        value={`${value * quantity} gram`}
         readOnly
       />
       <Button onClick={clickIn}>+</Button>
@@ -55,7 +52,6 @@ export const CartItem = (props: CartItemProps) => {
     imageUrl,
     currency,
     price,
-    onChangeQuantity,
     onClickDelete,
     totalPrice,
     onIncreate,

@@ -11,17 +11,17 @@ import {
 } from '@chakra-ui/react';
 import { CartItem } from '../components/CartItem';
 import { CartOrderSummary } from '../components/CartOder';
-// import { Product } from '../types/products.type';
 import { CartContext } from '../contexts/AppContext';
 const Cart = () => {
   const [total, setTotal] = useState(0);
-  const { cart, setCart, quantityy, count, setCount } = useContext(CartContext);
+  const { cart, setCart, amountInCart, setAmountInCart } =
+    useContext(CartContext);
 
   const handleRemove = (id: string | number) => {
     const arr = cart.filter((item) => item.id !== id);
     setCart(arr);
     localStorage.setItem('cart', JSON.stringify(arr));
-    setCount(count - 1);
+    setAmountInCart(amountInCart - 1);
     handleTotal();
   };
 
@@ -46,26 +46,15 @@ const Cart = () => {
     fakeCart[index].count--;
     if (fakeCart[index].count === 0) {
       fakeCart.splice(index, 1);
-      setCount((prev) => prev - 1);
+      setAmountInCart((prev) => prev - 1);
       setCart([...fakeCart]);
     } else {
       fakeCart[index].totalPrice =
         fakeCart[index].price * fakeCart[index].count;
       setCart([...fakeCart]);
     }
-
     localStorage.setItem('cart', JSON.stringify(fakeCart));
   };
-  // const handleChange = (item: Product, d: number) => {
-  //   const ind = cart.indexOf(item);
-  //   const arr = cart;
-  //   arr[ind].quantity += d;
-
-  //   if (arr[ind].quantity === 0) {
-  //     arr[ind].quantity = 1;
-  //   }
-  //   setCart([...cart]);
-  // };
 
   useEffect(() => {
     handleTotal();
@@ -86,7 +75,7 @@ const Cart = () => {
         >
           <Stack spacing={{ base: '8', md: '10' }} flex="2">
             <Heading fontSize="2xl" fontWeight="extrabold">
-              Shopping Cart ({count} items)
+              Shopping Cart ({amountInCart} items)
             </Heading>
 
             <Stack spacing="6">

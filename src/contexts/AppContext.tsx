@@ -5,25 +5,21 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import { Product } from '../types/products.type';
+import { Product, DetailProduct } from '../types/products.type';
 import { ProductCart } from '../types/product-cart.type';
 type ICartContext = {
-  quantityy: number;
-  setQuantityy: Dispatch<SetStateAction<number>>;
-  count: number;
-  setCount: Dispatch<SetStateAction<number>>;
+  amountInCart: number;
+  setAmountInCart: Dispatch<SetStateAction<number>>;
   cart: ProductCart[];
   setCart: React.Dispatch<React.SetStateAction<ProductCart[]>>;
-  handleAddCart: (arg: Product) => void;
+  handleAddCart: (arg: Product | DetailProduct) => void;
 };
 export const CartContext = React.createContext<ICartContext>({
-  quantityy: 1,
-  setQuantityy: () => {},
-  count: 0,
-  setCount: () => {},
+  amountInCart: 0,
+  setAmountInCart: () => {},
   cart: [],
   setCart: () => {},
-  handleAddCart: (agr: Product) => {},
+  handleAddCart: (agr: Product | DetailProduct) => {},
 });
 
 type IAppContextProps = {
@@ -32,10 +28,9 @@ type IAppContextProps = {
 
 const AppContextProvider: React.FC<IAppContextProps> = ({ children }) => {
   const [cart, setCart] = useState<ProductCart[]>([]);
-  const [count, setCount] = useState(0);
-  const [quantityy, setQuantityy] = useState(1);
+  const [amountInCart, setAmountInCart] = useState(0);
 
-  const handleAddCart = (item: Product) => {
+  const handleAddCart = (item: Product | DetailProduct) => {
     const index = cart.findIndex((c) => c.id === item.id);
     if (index !== -1) {
       cart[index].count++;
@@ -46,7 +41,7 @@ const AppContextProvider: React.FC<IAppContextProps> = ({ children }) => {
       const carts = [...cart, { ...item, totalPrice: item.price, count: 1 }];
       setCart([...carts]);
       localStorage.setItem('cart', JSON.stringify(carts));
-      setCount(count + 1);
+      setAmountInCart(amountInCart + 1);
     }
   };
 
@@ -54,10 +49,10 @@ const AppContextProvider: React.FC<IAppContextProps> = ({ children }) => {
     const storageCart = localStorage.getItem('cart');
     if (storageCart) {
       setCart(JSON.parse(storageCart));
-      setCount(JSON.parse(storageCart).length);
+      setAmountInCart(JSON.parse(storageCart).length);
     } else {
       setCart([]);
-      setCount(0);
+      setAmountInCart(0);
     }
   }, []);
 
@@ -66,10 +61,8 @@ const AppContextProvider: React.FC<IAppContextProps> = ({ children }) => {
       value={{
         cart,
         setCart,
-        count,
-        setCount,
-        quantityy,
-        setQuantityy,
+        amountInCart,
+        setAmountInCart,
         handleAddCart,
       }}
     >

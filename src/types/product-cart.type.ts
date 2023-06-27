@@ -1,6 +1,6 @@
-import { Product } from './products.type';
+import { DetailProduct } from './products.type';
 
-export interface ProductCart extends Product {
+export interface ProductCart extends DetailProduct {
   totalPrice: number;
   count: number;
 }

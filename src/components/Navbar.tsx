@@ -21,7 +21,7 @@ import { NavLink } from 'react-router-dom';
 import { CartContext } from '../contexts/AppContext';
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
-  const { count } = useContext(CartContext);
+  const { amountInCart } = useContext(CartContext);
   return (
     <React.Fragment>
       <Box>
@@ -93,7 +93,7 @@ const Navbar = () => {
                   align="center"
                   textColor="white"
                 >
-                  {count}
+                  {amountInCart}
                 </Text>
               </Box>
             </Flex>

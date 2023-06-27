@@ -98,9 +98,9 @@ const AllProducts = () => {
         <TabPanels>
           {tabs.map((tab, index) => (
             <TabPanel key={index}>
-              <SimpleGrid columns={[2, null, 3]} spacing="50px">
+              <SimpleGrid columns={[2, null, 4]} spacing="30px">
                 {products.map((item) => (
-                  <Box key={item.id}>
+                  <Box key={item.id} bg="linkedin.100">
                     <CardProduct
                       product={item}
                       handleView={() => handleView(item.id)}
