@@ -26,7 +26,7 @@ type IAppContextProps = {
   children: ReactElement;
 };
 
-const AppContextProvider: React.FC<IAppContextProps> = ({ children }) => {
+const CartContextProvider: React.FC<IAppContextProps> = ({ children }) => {
   const [cart, setCart] = useState<ProductCart[]>([]);
   const [amountInCart, setAmountInCart] = useState(0);
 
@@ -70,4 +70,4 @@ const AppContextProvider: React.FC<IAppContextProps> = ({ children }) => {
     </CartContext.Provider>
   );
 };
-export default AppContextProvider;
+export default CartContextProvider;

@@ -16,56 +16,17 @@ import {
 } from '@chakra-ui/react';
 
 import CardProduct from './Card';
-import { Product } from '../types/products.type';
-import { useNavigate } from 'react-router-dom';
-import { getProducts } from '../api/Product.api';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { CartContext } from '../contexts/AppContext';
+import { CartContext } from '../contexts/CartContext';
+import { ListContext } from '../contexts/ListProductContext';
 
 const tabs = ['All', 'New', 'Hot', 'On Sale', 'Popular'];
 
 const AllProducts = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [type, setType] = useState('All');
-  const [products, setProducts] = useState<Product[]>([]);
-  const [page, setPage] = useState<string | number>(1);
+  const { products, type, setType, page, handleView, getAllProduct } =
+    useContext(ListContext);
   const { handleAddCart } = useContext(CartContext);
-
-  const navigate = useNavigate();
-  const handleView = (id: string | number) => {
-    navigate(`/product-detail/${id}`);
-  };
-
-  const getAllProduct = async (page: string | number, status: string) => {
-    try {
-      const products = await getProducts(page);
-      let result;
-      switch (status) {
-        case 'New':
-          result = products.data.filter((el) => el.isNew);
-          setProducts(result);
-          break;
-        case 'Hot':
-          result = products.data.filter((el) => el.isHot);
-          setProducts(result);
-          break;
-        case 'On Sale':
-          result = products.data.filter((el) => el.onSale);
-          setProducts(result);
-          break;
-        case 'Popular':
-          result = products.data.filter((el) => el.popular);
-          setProducts(result);
-          break;
-        default:
-          setProducts(products.data);
-          break;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     getAllProduct(page, type);
   }, [type, page]);
@@ -100,7 +61,7 @@ const AllProducts = () => {
             <TabPanel key={index}>
               <SimpleGrid columns={[2, null, 4]} spacing="30px">
                 {products.map((item) => (
-                  <Box key={item.id} bg="linkedin.100">
+                  <Box key={item.id}>
                     <CardProduct
                       product={item}
                       handleView={() => handleView(item.id)}

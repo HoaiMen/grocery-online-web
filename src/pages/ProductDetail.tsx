@@ -30,7 +30,7 @@ import { useParams } from 'react-router-dom';
 import { getProduct } from '../api/Product.api';
 import Rating from '../components/Rating';
 import ModalDetail from '../components/ModalDetail';
-import { CartContext } from '../contexts/AppContext';
+import { CartContext } from '../contexts/CartContext';
 
 interface IBlogTags {
   tags: Array<string>;
@@ -72,16 +72,17 @@ const ProductDetail = () => {
   );
   const { handleAddCart } = useContext(CartContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [image, setImage] = useState(product?.imageURL[5]);
+  const [image, setImage] = useState('');
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const param = useParams();
 
-  console.log('product:', product.imageURL);
+  console.log('product:', product);
   console.log('image', image);
   const getProductDetail = async (id: string | number) => {
     try {
       const product = await getProduct(id);
       setProduct(product?.data);
+      setImage(product?.data.imageURL[0]);
     } catch (err) {
       console.log(err);
     }
@@ -94,7 +95,7 @@ const ProductDetail = () => {
 
   return (
     <DetailLayout>
-      <Container maxW={'full'} p="12">
+      <Container maxW={'full'} px="12">
         <ModalDetail open={isOpen} close={onClose} overlayy={overlay} />
         <Box
           marginTop={{ base: '1', sm: '5' }}

@@ -1,12 +1,12 @@
 import React from 'react';
 import DefaultLayout from '../layouts/DefaultLayout';
-import { Box, Text } from '@chakra-ui/react';
-import ProductDetail from './ProductDetail';
+import { Box } from '@chakra-ui/react';
+import ContactPage from '../components/Contact/ContactPage';
 const Contact = () => {
   return (
     <DefaultLayout>
       <Box>
-        <Text>Contact</Text>
+        <ContactPage />
       </Box>
     </DefaultLayout>
   );

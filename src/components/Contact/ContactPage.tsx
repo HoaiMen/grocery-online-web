@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Container,
   Flex,
@@ -22,22 +23,22 @@ import {
   MdEmail,
   MdLocationOn,
   MdFacebook,
-  MdOutlineEmail,
+  // MdOutlineEmail,
 } from 'react-icons/md';
-import { BsGithub, BsDiscord, BsPerson } from 'react-icons/bs';
+import { BsGithub, BsDiscord } from 'react-icons/bs';
 
-export default function contact() {
+const ContactPage = () => {
   return (
     <Container bg="#9DC4FB" maxW="full" mt={0} centerContent overflow="hidden">
       <Flex>
         <Box
-          bg="#02054B"
+          bg="#184785"
           color="white"
           borderRadius="lg"
           m={{ sm: 4, md: 16, lg: 10 }}
-          p={{ sm: 5, md: 5, lg: 16 }}
+          p={{ sm: 5, md: 5, lg: 12 }}
         >
-          <Box p={4}>
+          <Box>
             <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
               <WrapItem>
                 <Box>
@@ -118,13 +119,13 @@ export default function contact() {
               <WrapItem>
                 <Box bg="white" borderRadius="lg">
                   <Box m={8} color="#0B0E3F">
-                    <VStack spacing={5}>
+                    <VStack spacing={5} w={{ base: 'full', md: '470px' }}>
                       <FormControl id="name">
                         <FormLabel>Your Name</FormLabel>
                         <InputGroup borderColor="#E0E1E7">
                           <InputLeftElement
                             pointerEvents="none"
-                            children={<BsPerson color="gray.800" />}
+                            // children={<BsPerson color="gray.800" />}
                           />
                           <Input type="text" size="md" />
                         </InputGroup>
@@ -134,7 +135,7 @@ export default function contact() {
                         <InputGroup borderColor="#E0E1E7">
                           <InputLeftElement
                             pointerEvents="none"
-                            children={<MdOutlineEmail color="gray.800" />}
+                            // children={<MdOutlineEmail color="gray.800" />}
                           />
                           <Input type="text" size="md" />
                         </InputGroup>
@@ -154,7 +155,7 @@ export default function contact() {
                           variant="solid"
                           bg="#0D74FF"
                           color="white"
-                          _hover={{}}
+                          _hover={{ bg: 'green' }}
                         >
                           Send Message
                         </Button>
@@ -169,4 +170,5 @@ export default function contact() {
       </Flex>
     </Container>
   );
-}
+};
+export default ContactPage;

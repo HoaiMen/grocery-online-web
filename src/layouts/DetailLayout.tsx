@@ -10,7 +10,7 @@ const DetailLayout: React.FC<IDetailProps> = ({ children }) => {
       <Box>
         <Navbar />
       </Box>
-      <Box mx={14}>{children}</Box>
+      <Box m={10}>{children}</Box>
     </React.Fragment>
   );
 };

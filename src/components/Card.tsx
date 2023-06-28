@@ -27,9 +27,9 @@ const CardProduct: React.FC<ICardProp> = ({
   handleView,
 }) => {
   return (
-    <Card maxW="full" bg="cyan.200">
+    <Card maxW="full" bg="cyan.50">
       <CardBody>
-        <Box borderRadius="lg" bg="orange.100" overflow="hidden">
+        <Box borderRadius="lg" overflow="hidden">
           <Link
             textDecoration="none"
             _hover={{ textDecoration: 'none' }}

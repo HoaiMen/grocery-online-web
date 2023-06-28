@@ -17,11 +17,12 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import Lottie from 'react-lottie';
-import animationData from '../Lottie/SignIn.json';
+import animationData from '../Lottie/SignUp.json';
 import DetailLayout from '../layouts/DetailLayout';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
-const SignIn = () => {
+
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const defaultOptions = {
@@ -86,19 +87,19 @@ const SignIn = () => {
                   </Link>
                 </Stack>
                 <Button variant="solid" colorScheme="green">
-                  Sign in
+                  Sign up
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Do you have any account?{' '}
+                  Already a user?{' '}
                   <Link
                     as={NavLink}
-                    to={'/signUp'}
+                    to={'/signIn'}
                     color={'blue.400'}
                     fontWeight={'medium'}
                   >
-                    Sign Up
+                    Sign In
                   </Link>
                 </Text>
               </Stack>
@@ -112,4 +113,4 @@ const SignIn = () => {
     </DetailLayout>
   );
 };
-export default SignIn;
+export default SignUp;

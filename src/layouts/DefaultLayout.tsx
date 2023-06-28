@@ -8,10 +8,10 @@ type IDefaultProps = {
 const DefaultLayout: React.FC<IDefaultProps> = ({ children }) => {
   return (
     <React.Fragment>
-      <Box w="full" position="fixed" zIndex="2">
+      <Box w="full" position="fixed" zIndex="2" bg="orange.300">
         <Navbar />
       </Box>
-      <Box mx={{ base: '0', md: '20' }} py="20" position="sticky">
+      <Box mx={{ base: '0', md: '20' }} py="16" position="sticky">
         {children}
       </Box>
       <Box>

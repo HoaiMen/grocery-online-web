@@ -6,12 +6,9 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  Input,
-  IconButton,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { BiMailSend } from 'react-icons/bi';
 import SocialButton from './SocialButton';
 import Logo from './Logo';
 import ListHeader from './ListHeader';
@@ -29,7 +26,7 @@ const Footer = () => {
         >
           <Stack spacing={6}>
             <Box>
-              <Logo color={useColorModeValue('gray.700', 'white')} />
+              <Logo textSize={36} iconSize={38} />
             </Box>
             <Text fontSize={'sm'}>
               © 2022 Chakra Templates. All rights reserved
@@ -47,6 +44,14 @@ const Footer = () => {
             </Stack>
           </Stack>
           <Stack align={'flex-start'}>
+            <ListHeader>Product</ListHeader>
+            <Link href={'#'}>Overview</Link>
+            <Link href={'#'}>Features</Link>
+            <Link href={'#'}>Tutorials</Link>
+            <Link href={'#'}>Pricing</Link>
+            <Link href={'#'}>Releases</Link>
+          </Stack>
+          <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
             <Link href={'#'}>About us</Link>
             <Link href={'#'}>Blog</Link>
@@ -61,28 +66,6 @@ const Footer = () => {
             <Link href={'#'}>Legal</Link>
             <Link href={'#'}>Privacy Policy</Link>
             <Link href={'#'}>Satus</Link>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Stay up to date</ListHeader>
-            <Stack direction={'row'}>
-              <Input
-                placeholder={'Your email address'}
-                bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-                border={0}
-                _focus={{
-                  bg: 'whiteAlpha.300',
-                }}
-              />
-              <IconButton
-                bg={useColorModeValue('green.400', 'green.800')}
-                color={useColorModeValue('white', 'gray.800')}
-                _hover={{
-                  bg: 'green.600',
-                }}
-                aria-label="Subscribe"
-                icon={<BiMailSend />}
-              />
-            </Stack>
           </Stack>
         </SimpleGrid>
       </Container>

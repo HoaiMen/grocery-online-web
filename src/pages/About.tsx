@@ -7,10 +7,10 @@ import GridListWithHeading from '../components/About/Feature_2';
 const About = () => {
   return (
     <DefaultLayout>
-      <Box>
+      <Box px="14">
         <SplitWithImage />
-        <GridListWithHeading />
         <SimpleThreeColumns />
+        <GridListWithHeading />
       </Box>
     </DefaultLayout>
   );

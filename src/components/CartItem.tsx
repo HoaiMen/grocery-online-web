@@ -33,7 +33,7 @@ const QuantitySelect: React.FC<IQuantityProps> = ({
     <Flex>
       <Button onClick={clickDis}>-</Button>
       <Input
-        htmlSize={4}
+        htmlSize={6}
         width="auto"
         value={`${value * quantity} gram`}
         readOnly

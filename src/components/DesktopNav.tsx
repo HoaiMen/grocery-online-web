@@ -21,13 +21,14 @@ const DesktopNav = () => {
             py={2}
             as={NavLink}
             to={navItem.href}
-            _activeLink={path === navItem.href ? { bg: 'orange.200' } : {}}
-            fontSize={'sm'}
+            _activeLink={path === navItem.href ? { bg: 'orange.300' } : {}}
+            fontSize={'lg'}
             fontWeight={500}
             color={linkColor}
             _hover={{
               textDecoration: 'none',
               color: linkHoverColor,
+              bg: 'orange.100',
             }}
           >
             {navItem.label}
