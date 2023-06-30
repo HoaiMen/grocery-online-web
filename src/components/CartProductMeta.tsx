@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Image,
   Stack,
   Text,
+  Link,
   HStack,
+  useDisclosure,
   useColorModeValue as mode,
 } from '@chakra-ui/react';
 import { PriceTag } from './PriceTag';
+import { ModalContext, OverlayOne } from '../contexts/ModalContext';
 
 export type CartProductMetaProps = {
   name: string;
@@ -20,18 +23,27 @@ export type CartProductMetaProps = {
 
 export const CartProductMeta = (props: CartProductMetaProps) => {
   const { image, name, price, currency, category, quantity } = props;
+  const { onOpen } = useDisclosure();
+  const { setOverlay } = useContext(ModalContext);
   return (
     <Stack direction="row" spacing="5" width="full">
-      <Image
-        rounded="lg"
-        width="120px"
-        height="120px"
-        fit="cover"
-        src={image}
-        alt={name}
-        draggable="false"
-        loading="lazy"
-      />
+      <Link
+        onClick={() => {
+          setOverlay(<OverlayOne />), onOpen();
+        }}
+      >
+        <Image
+          rounded="lg"
+          width="120px"
+          height="120px"
+          fit="cover"
+          src={image}
+          alt={name}
+          draggable="false"
+          loading="lazy"
+        />
+      </Link>
+
       <Box pt="4">
         <Stack spacing="0.5">
           <Text fontWeight="medium">{name}</Text>

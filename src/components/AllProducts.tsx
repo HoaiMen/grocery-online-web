@@ -33,7 +33,13 @@ const AllProducts = () => {
   return (
     <Box>
       <Tabs variant="soft-rounded" colorScheme="green" my="8">
-        <Flex h={12} alignItems={'center'} justifyContent={'space-between'}>
+        <Flex
+          h={12}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+          bg="gray.200"
+          p={4}
+        >
           <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -49,7 +55,7 @@ const AllProducts = () => {
             ))}
           </TabList>
           <Flex alignItems={'center'}>
-            <Select variant="filled">
+            <Select variant="filled" bg={'white'}>
               <option value="option1">All Product</option>
               <option value="option2">Fruit</option>
               <option value="option3">Vegetables</option>

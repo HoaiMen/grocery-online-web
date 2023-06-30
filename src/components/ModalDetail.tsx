@@ -24,8 +24,26 @@ type IModalProps = {
   open: boolean;
   close: () => void;
   overlayy: ReactElement;
+  image: string;
+  namep: string;
+  category: string;
+  numReviews: number;
+  content: string;
+  rating: number;
+  price: number;
 };
-const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
+const ModalDetail: React.FC<IModalProps> = ({
+  open,
+  close,
+  overlayy,
+  image,
+  namep,
+  category,
+  numReviews,
+  content,
+  rating,
+  price,
+}) => {
   const [product, setProduct] = useState<Pick<
     Product,
     | 'name'
@@ -36,21 +54,21 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
     | 'rating'
     | 'numReviews'
   > | null>(null);
-  const param = useParams();
-  const getProductDetail = async (id: string | number) => {
-    try {
-      const product = await getProduct(id);
-      setProduct(product?.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const param = useParams();
+  // const getProductDetail = async (id: string | number) => {
+  //   try {
+  //     const product = await getProduct(id);
+  //     setProduct(product?.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (param.id) {
-      getProductDetail(param.id);
-    }
-  }, [param?.id]);
+  // useEffect(() => {
+  //   if (param.id) {
+  //     getProductDetail(param.id);
+  //   }
+  // }, [param?.id]);
   return (
     <>
       <Modal isCentered isOpen={open} onClose={close} size="4xl">
@@ -88,7 +106,7 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
                         width="full"
                         height="270px"
                         borderRadius="lg"
-                        src={product?.imageURL[0]}
+                        src={image}
                         alt="some good alt text"
                         objectFit="cover"
                       />
@@ -130,37 +148,34 @@ const ModalDetail: React.FC<IModalProps> = ({ open, close, overlayy }) => {
                         <Text as={'span'} fontWeight={'bold'}>
                           Name:
                         </Text>{' '}
-                        {product?.name}
+                        {namep}
                       </ListItem>
                       <ListItem>
                         <Text as={'span'} fontWeight={'bold'}>
                           Description:
                         </Text>{' '}
                         <Text noOfLines={2} fontSize="xs">
-                          {product?.content}
+                          {content}
                         </Text>
                       </ListItem>
                       <ListItem>
                         <Text as={'span'} fontWeight={'bold'}>
                           Price:
                         </Text>{' '}
-                        {`$ ${product?.price} USD`}
+                        {`$ ${price} USD`}
                       </ListItem>
                       <ListItem>
                         <Text as={'span'} fontWeight={'bold'}>
                           Category:
                         </Text>{' '}
-                        {product?.category}
+                        {category}
                       </ListItem>
                       <ListItem>
                         <Text as={'span'} fontWeight={'bold'}>
                           Rating:
                         </Text>{' '}
                         {product && (
-                          <Rating
-                            rating={product?.rating}
-                            numReviews={product?.numReviews}
-                          />
+                          <Rating rating={rating} numReviews={numReviews} />
                         )}
                       </ListItem>
                     </List>

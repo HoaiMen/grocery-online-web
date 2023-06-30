@@ -16,18 +16,14 @@ import ModalDetail from '../components/ModalDetail';
 import { CartItem } from '../components/CartItem';
 import { CartOrderSummary } from '../components/CartOder';
 import { CartContext } from '../contexts/CartContext';
+import { ModalContext } from '../contexts/ModalContext';
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const { cart, setCart, amountInCart, setAmountInCart } =
     useContext(CartContext);
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="whiteAlpha.50"
-      backdropFilter="blur(5px) hue-rotate(10deg)"
-    />
-  );
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const { overlay } = useContext(ModalContext);
+
   const handleRemove = (id: string | number) => {
     const arr = cart.filter((item) => item.id !== id);
     setCart(arr);
@@ -74,7 +70,18 @@ const Cart = () => {
   return (
     <DetailLayout>
       <Container maxW={'full'}>
-        <ModalDetail open={isOpen} close={onClose} overlayy={overlay} />
+        {/* <ModalDetail
+          open={isOpen}
+          close={onClose}
+          overlayy={overlay}
+          image={item.imageURL[0]}
+          namep={item.name}
+          category={item.category}
+          numReviews={item.numReviews}
+          content={item.content}
+          rating={item.rating}
+          price={item.price}
+        /> */}
         <Box
           maxW={{ base: '3xl', lg: '7xl' }}
           mx="auto"

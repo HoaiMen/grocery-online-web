@@ -15,7 +15,6 @@ import {
   Divider,
   VStack,
   Button,
-  ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
 import { EffectCoverflow, Pagination } from 'swiper';
@@ -31,6 +30,7 @@ import { getProduct } from '../api/Product.api';
 import Rating from '../components/Rating';
 import ModalDetail from '../components/ModalDetail';
 import { CartContext } from '../contexts/CartContext';
+import { ModalContext, OverlayOne } from '../contexts/ModalContext';
 
 interface IBlogTags {
   tags: Array<string>;
@@ -64,20 +64,12 @@ const ProductDetail = () => {
     numReviews: 0,
   });
 
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="whiteAlpha.50"
-      backdropFilter="blur(5px) hue-rotate(10deg)"
-    />
-  );
   const { handleAddCart } = useContext(CartContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [image, setImage] = useState('');
-  const [overlay, setOverlay] = useState(<OverlayOne />);
   const param = useParams();
+  const { overlay, setOverlay } = useContext(ModalContext);
 
-  console.log('product:', product);
-  console.log('image', image);
   const getProductDetail = async (id: string | number) => {
     try {
       const product = await getProduct(id);
@@ -96,7 +88,18 @@ const ProductDetail = () => {
   return (
     <DetailLayout>
       <Container maxW={'full'} px="12">
-        <ModalDetail open={isOpen} close={onClose} overlayy={overlay} />
+        <ModalDetail
+          open={isOpen}
+          close={onClose}
+          overlayy={overlay}
+          image={product?.imageURL[0]}
+          namep={product?.name}
+          category={product?.category}
+          numReviews={product?.numReviews}
+          content={product?.content}
+          rating={product?.rating}
+          price={product?.price}
+        />
         <Box
           marginTop={{ base: '1', sm: '5' }}
           display="flex"

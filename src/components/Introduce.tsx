@@ -15,7 +15,7 @@ import Blob from './Blob';
 
 const Introduce = () => {
   return (
-    <Container maxW={'full'} bg="green.50">
+    <Container maxW={'full'} bg="green.100">
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
