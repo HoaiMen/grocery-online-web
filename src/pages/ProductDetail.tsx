@@ -15,7 +15,6 @@ import {
   Divider,
   VStack,
   Button,
-  useDisclosure,
 } from '@chakra-ui/react';
 import { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -28,9 +27,7 @@ import { DetailProduct } from '../types/products.type';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../api/Product.api';
 import Rating from '../components/Rating';
-import ModalDetail from '../components/ModalDetail';
 import { CartContext } from '../contexts/CartContext';
-import { ModalContext, OverlayOne } from '../contexts/ModalContext';
 
 interface IBlogTags {
   tags: Array<string>;
@@ -65,10 +62,8 @@ const ProductDetail = () => {
   });
 
   const { handleAddCart } = useContext(CartContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [image, setImage] = useState('');
   const param = useParams();
-  const { overlay, setOverlay } = useContext(ModalContext);
 
   const getProductDetail = async (id: string | number) => {
     try {
@@ -88,18 +83,6 @@ const ProductDetail = () => {
   return (
     <DetailLayout>
       <Container maxW={'full'} px="12">
-        <ModalDetail
-          open={isOpen}
-          close={onClose}
-          overlayy={overlay}
-          image={product?.imageURL[0]}
-          namep={product?.name}
-          category={product?.category}
-          numReviews={product?.numReviews}
-          content={product?.content}
-          rating={product?.rating}
-          price={product?.price}
-        />
         <Box
           marginTop={{ base: '1', sm: '5' }}
           display="flex"
@@ -121,23 +104,14 @@ const ProductDetail = () => {
                 marginLeft={{ base: '0', sm: '5%' }}
                 marginTop="5%"
               >
-                <Link
-                  textDecoration="none"
-                  _hover={{ textDecoration: 'none' }}
-                  onClick={() => {
-                    setOverlay(<OverlayOne />);
-                    onOpen();
-                  }}
-                >
-                  <Image
-                    h="330px"
-                    width="650px"
-                    borderRadius="lg"
-                    src={image}
-                    alt="some good alt text"
-                    objectFit="cover"
-                  />
-                </Link>
+                <Image
+                  h="330px"
+                  width="650px"
+                  borderRadius="lg"
+                  src={image}
+                  alt="some good alt text"
+                  objectFit="cover"
+                />
               </Box>
               {/* background */}
               <Box zIndex="1" width="100%" position="absolute" height="100%">

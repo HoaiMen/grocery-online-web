@@ -23,8 +23,8 @@ export const ListContext = React.createContext<IListContext>({
   setType: () => {},
   page: 0,
   setPage: () => {},
-  handleView: (arg: string | number) => {},
-  getAllProduct: (arg: string | number, arg1: string) => {},
+  handleView: () => {},
+  getAllProduct: () => {},
 });
 const ListContextProvider: React.FC<IProvider> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -53,6 +53,14 @@ const ListContextProvider: React.FC<IProvider> = ({ children }) => {
           break;
         case 'Popular':
           result = products.data.filter((el) => el.popular);
+          setProducts(result);
+          break;
+        case 'Fruit':
+          result = products.data.filter((el) => el.category === 'fruit');
+          setProducts(result);
+          break;
+        case 'Vegetables':
+          result = products.data.filter((el) => el.category === 'vegetables');
           setProducts(result);
           break;
         default:

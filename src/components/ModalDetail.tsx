@@ -1,74 +1,24 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import {
-  Button,
   Modal,
   ModalContent,
   ModalCloseButton,
   ModalHeader,
   ModalBody,
-  Text,
-  useColorModeValue,
-  List,
-  Divider,
-  Container,
-  Box,
-  ListItem,
-  Link,
-  Image,
 } from '@chakra-ui/react';
-import Rating from './Rating';
-import { Product } from '../types/products.type';
-import { getProduct } from '../api/Product.api';
-import { useParams } from 'react-router-dom';
+
 type IModalProps = {
   open: boolean;
   close: () => void;
   overlayy: ReactElement;
-  image: string;
-  namep: string;
-  category: string;
-  numReviews: number;
-  content: string;
-  rating: number;
-  price: number;
+  children: ReactElement;
 };
 const ModalDetail: React.FC<IModalProps> = ({
   open,
   close,
   overlayy,
-  image,
-  namep,
-  category,
-  numReviews,
-  content,
-  rating,
-  price,
+  children,
 }) => {
-  const [product, setProduct] = useState<Pick<
-    Product,
-    | 'name'
-    | 'imageURL'
-    | 'content'
-    | 'price'
-    | 'category'
-    | 'rating'
-    | 'numReviews'
-  > | null>(null);
-  // const param = useParams();
-  // const getProductDetail = async (id: string | number) => {
-  //   try {
-  //     const product = await getProduct(id);
-  //     setProduct(product?.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (param.id) {
-  //     getProductDetail(param.id);
-  //   }
-  // }, [param?.id]);
   return (
     <>
       <Modal isCentered isOpen={open} onClose={close} size="4xl">
@@ -76,117 +26,7 @@ const ModalDetail: React.FC<IModalProps> = ({
         <ModalContent backgroundColor="orange.200">
           <ModalHeader>Stories by Chakra Templates</ModalHeader>
           <ModalCloseButton />
-          <ModalBody mb={8}>
-            <Container maxW={'7xl'} p="8" bg="white" rounded="md">
-              <Box
-                marginTop={{ base: '1', sm: '5' }}
-                display="flex"
-                flexDirection={{ base: 'column', sm: 'row' }}
-                justifyContent="space-between"
-              >
-                <Box
-                  display="flex"
-                  flex="1"
-                  marginRight="3"
-                  position="relative"
-                  alignItems="center"
-                >
-                  {/* img */}
-                  <Box
-                    width={{ base: '100%', sm: '85%' }}
-                    zIndex="2"
-                    marginLeft={{ base: '0', sm: '5%' }}
-                    marginTop="5%"
-                  >
-                    <Link
-                      textDecoration="none"
-                      _hover={{ textDecoration: 'none' }}
-                    >
-                      <Image
-                        width="full"
-                        height="270px"
-                        borderRadius="lg"
-                        src={image}
-                        alt="some good alt text"
-                        objectFit="cover"
-                      />
-                    </Link>
-                  </Box>
-                  {/* background */}
-                  <Box zIndex="1" width="100%" position="absolute" height="70%">
-                    <Box
-                      bgGradient={useColorModeValue(
-                        'radial(orange.600 1px, transparent 1px)',
-                        'radial(orange.300 1px, transparent 1px)'
-                      )}
-                      backgroundSize="20px 20px"
-                      opacity="0.4"
-                      height="100%"
-                    />
-                  </Box>
-                </Box>
-                <Box
-                  display="flex"
-                  flex="1"
-                  flexDirection="column"
-                  marginTop={{ base: '3', sm: '0' }}
-                >
-                  <Divider />
-                  <Box>
-                    <Text
-                      fontSize={{ base: '16px', lg: '18px' }}
-                      color={useColorModeValue('yellow.500', 'yellow.300')}
-                      fontWeight={'500'}
-                      textTransform={'uppercase'}
-                      my={'4'}
-                    >
-                      Product Details
-                    </Text>
-
-                    <List spacing={2}>
-                      <ListItem>
-                        <Text as={'span'} fontWeight={'bold'}>
-                          Name:
-                        </Text>{' '}
-                        {namep}
-                      </ListItem>
-                      <ListItem>
-                        <Text as={'span'} fontWeight={'bold'}>
-                          Description:
-                        </Text>{' '}
-                        <Text noOfLines={2} fontSize="xs">
-                          {content}
-                        </Text>
-                      </ListItem>
-                      <ListItem>
-                        <Text as={'span'} fontWeight={'bold'}>
-                          Price:
-                        </Text>{' '}
-                        {`$ ${price} USD`}
-                      </ListItem>
-                      <ListItem>
-                        <Text as={'span'} fontWeight={'bold'}>
-                          Category:
-                        </Text>{' '}
-                        {category}
-                      </ListItem>
-                      <ListItem>
-                        <Text as={'span'} fontWeight={'bold'}>
-                          Rating:
-                        </Text>{' '}
-                        {product && (
-                          <Rating rating={rating} numReviews={numReviews} />
-                        )}
-                      </ListItem>
-                    </List>
-                  </Box>
-                  <Button variant="solid" colorScheme="green" w="50%" mt="14">
-                    Add to cart
-                  </Button>
-                </Box>
-              </Box>
-            </Container>
-          </ModalBody>
+          <ModalBody mb={8}>{children}</ModalBody>
         </ModalContent>
       </Modal>
     </>

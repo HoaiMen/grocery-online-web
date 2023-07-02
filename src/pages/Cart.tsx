@@ -7,7 +7,6 @@ import {
   HStack,
   Link,
   Stack,
-  ModalOverlay,
   useDisclosure,
   Container,
   useColorModeValue as mode,
@@ -16,13 +15,25 @@ import ModalDetail from '../components/ModalDetail';
 import { CartItem } from '../components/CartItem';
 import { CartOrderSummary } from '../components/CartOder';
 import { CartContext } from '../contexts/CartContext';
-import { ModalContext } from '../contexts/ModalContext';
+import { ModalContext, OverlayOne } from '../contexts/ModalContext';
+import { Product } from '../types/products.type';
+import BodyModal from '../components/BodyModal';
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const { cart, setCart, amountInCart, setAmountInCart } =
     useContext(CartContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { overlay } = useContext(ModalContext);
+  const { overlay, setOverlay } = useContext(ModalContext);
+  const [dataProduct, setDataProduct] = useState<Pick<
+    Product,
+    | 'name'
+    | 'imageURL'
+    | 'content'
+    | 'price'
+    | 'category'
+    | 'rating'
+    | 'numReviews'
+  > | null>(null);
 
   const handleRemove = (id: string | number) => {
     const arr = cart.filter((item) => item.id !== id);
@@ -70,18 +81,19 @@ const Cart = () => {
   return (
     <DetailLayout>
       <Container maxW={'full'}>
-        {/* <ModalDetail
-          open={isOpen}
-          close={onClose}
-          overlayy={overlay}
-          image={item.imageURL[0]}
-          namep={item.name}
-          category={item.category}
-          numReviews={item.numReviews}
-          content={item.content}
-          rating={item.rating}
-          price={item.price}
-        /> */}
+        {dataProduct && (
+          <ModalDetail open={isOpen} close={onClose} overlayy={overlay}>
+            <BodyModal
+              image={dataProduct?.imageURL[0]}
+              namep={dataProduct?.name}
+              content={dataProduct?.content}
+              price={dataProduct?.price}
+              category={dataProduct?.category}
+              numReviews={dataProduct?.numReviews}
+              rating={dataProduct?.rating}
+            />
+          </ModalDetail>
+        )}
         <Box
           maxW={{ base: '3xl', lg: '7xl' }}
           mx="auto"
@@ -102,7 +114,6 @@ const Cart = () => {
                 {cart.map((item, index) => (
                   <CartItem
                     key={index}
-                    description={item.content}
                     quantity={item.quantity}
                     count={item.count}
                     currency={item.currency}
@@ -114,6 +125,11 @@ const Cart = () => {
                     onClickDelete={() => handleRemove(item.id)}
                     onIncreate={() => increateMountProduct(index)}
                     onDecreate={() => decreateMountProduct(index)}
+                    openModal={() => {
+                      setOverlay(<OverlayOne />),
+                        onOpen(),
+                        setDataProduct(item);
+                    }}
                   />
                 ))}
               </Stack>

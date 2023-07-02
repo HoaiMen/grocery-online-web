@@ -21,11 +21,12 @@ import { CartContext } from '../contexts/CartContext';
 import { ListContext } from '../contexts/ListProductContext';
 
 const tabs = ['All', 'New', 'Hot', 'On Sale', 'Popular'];
-
+const options = ['All Product', 'Fruit', 'Vegetables'];
 const AllProducts = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { products, type, setType, page, handleView, getAllProduct } =
     useContext(ListContext);
+  const [choose, setChoose] = useState('All Product');
   const { handleAddCart } = useContext(CartContext);
   useEffect(() => {
     getAllProduct(page, type);
@@ -56,9 +57,15 @@ const AllProducts = () => {
           </TabList>
           <Flex alignItems={'center'}>
             <Select variant="filled" bg={'white'}>
-              <option value="option1">All Product</option>
-              <option value="option2">Fruit</option>
-              <option value="option3">Vegetables</option>
+              {options.map((option, index) => (
+                <option
+                  key={index}
+                  onClick={() => setChoose(option)}
+                  value="option1"
+                >
+                  {option}
+                </option>
+              ))}
             </Select>
           </Flex>
         </Flex>
@@ -84,7 +91,7 @@ const AllProducts = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            {tabs.map((tab, index) => (
+            {tabs.map((tab) => (
               <Text key={tab}>{tab}</Text>
             ))}
           </Stack>

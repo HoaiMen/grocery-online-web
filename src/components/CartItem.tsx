@@ -6,7 +6,6 @@ import { CartProductMeta } from './CartProductMeta';
 type CartItemProps = {
   name: string;
   category: string;
-  description: string;
   quantity: number;
   count: number;
   price: number;
@@ -16,6 +15,7 @@ type CartItemProps = {
   onClickDelete?: () => void;
   onIncreate: () => void;
   onDecreate: () => void;
+  openModal: () => void;
 };
 type IQuantityProps = {
   clickIn: () => void;
@@ -56,6 +56,7 @@ export const CartItem = (props: CartItemProps) => {
     totalPrice,
     onIncreate,
     onDecreate,
+    openModal,
   } = props;
 
   return (
@@ -71,6 +72,7 @@ export const CartItem = (props: CartItemProps) => {
         image={imageUrl}
         category={category}
         quantity={quantity}
+        handleOpenModal={openModal}
       />
 
       {/* Desktop */}
@@ -109,12 +111,6 @@ export const CartItem = (props: CartItemProps) => {
           value={count}
           quantity={quantity}
         />
-        {/* <QuantitySelect
-          value={quantity}
-          onChange={(e) => {
-            onChangeQuantity?.(+e.currentTarget.value);
-          }}
-        /> */}
         <PriceTag price={totalPrice} currency={currency} />
       </Flex>
     </Flex>
