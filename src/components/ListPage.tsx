@@ -4,12 +4,12 @@ import CardProduct from './Card';
 import { ListContext } from '../contexts/ListProductContext';
 import { CartContext } from '../contexts/CartContext';
 const ListPage = () => {
-  const { products, type, page, handleView, getAllProduct } =
+  const { products, option, type, page, handleView, getAllProduct } =
     useContext(ListContext);
   const { handleAddCart } = useContext(CartContext);
 
   useEffect(() => {
-    getAllProduct(page, type);
+    getAllProduct(page, type, option);
   }, [type, page]);
   return (
     <Box>

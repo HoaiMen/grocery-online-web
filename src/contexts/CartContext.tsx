@@ -31,32 +31,6 @@ const CartContextProvider: React.FC<ICartContextProps> = ({ children }) => {
   const [cart, setCart] = useState<ProductCart[]>([]);
   const [amountInCart, setAmountInCart] = useState(0);
 
-  // const handleAddCart = (item: Product | DetailProduct) => {
-  //   const index = cart.findIndex((c) => c.id === item.id);
-  //   if (index !== -1) {
-  //     cart[index].count++;
-  //     cart[index].totalPrice = cart[index].price * cart[index].count;
-  //     setCart([...cart]);
-  //     localStorage.setItem('cart', JSON.stringify(cart));
-  //   } else {
-  //     const carts = [...cart, { ...item, totalPrice: item.price, count: 1 }];
-  //     setCart([...carts]);
-  //     localStorage.setItem('cart', JSON.stringify(carts));
-  //     setAmountInCart(amountInCart + 1);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const storageCart = localStorage.getItem('cart');
-  //   if (storageCart) {
-  //     setCart(JSON.parse(storageCart));
-  //     setAmountInCart(JSON.parse(storageCart).length);
-  //   } else {
-  //     setCart([]);
-  //     setAmountInCart(0);
-  //   }
-  // }, []);
-
   const handleAddCart = (item: Product | DetailProduct) => {
     const index = cart.findIndex((c) => c.id === item.id);
     if (index !== -1) {

@@ -10,10 +10,12 @@ type IListContext = {
   setProducts: Dispatch<SetStateAction<Product[]>>;
   type: string;
   setType: Dispatch<React.SetStateAction<string>>;
+  option: string;
+  setOption: Dispatch<React.SetStateAction<string>>;
   page: number | string;
   setPage: Dispatch<React.SetStateAction<string | number>>;
   handleView: (arg: string | number) => void;
-  getAllProduct: (arg: string | number, arg1: string) => void;
+  getAllProduct: (arg: string | number, arg1: string, arg2: string) => void;
 };
 
 export const ListContext = React.createContext<IListContext>({
@@ -21,6 +23,8 @@ export const ListContext = React.createContext<IListContext>({
   setProducts: () => {},
   type: '',
   setType: () => {},
+  option: '',
+  setOption: () => {},
   page: 0,
   setPage: () => {},
   handleView: () => {},
@@ -29,12 +33,18 @@ export const ListContext = React.createContext<IListContext>({
 const ListContextProvider: React.FC<IProvider> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [type, setType] = useState('All');
+  const [option, setOption] = useState('All Product');
   const [page, setPage] = useState<string | number>(1);
   const navigate = useNavigate();
   const handleView = (id: string | number) => {
     navigate(`/product-detail/${id}`);
   };
-  const getAllProduct = async (page: string | number, status: string) => {
+  const getAllProduct = async (
+    page: string | number,
+    status: string,
+    choose: string
+    // limit: string | number
+  ) => {
     try {
       const products = await getProducts(page);
       let result;
@@ -55,17 +65,18 @@ const ListContextProvider: React.FC<IProvider> = ({ children }) => {
           result = products.data.filter((el) => el.popular);
           setProducts(result);
           break;
-        case 'Fruit':
-          result = products.data.filter((el) => el.category === 'fruit');
-          setProducts(result);
-          break;
-        case 'Vegetables':
-          result = products.data.filter((el) => el.category === 'vegetables');
-          setProducts(result);
-          break;
         default:
           setProducts(products.data);
           break;
+      }
+      console.log('result:', result);
+      let ray;
+      if (choose === 'Fruit') {
+        ray = products.data.filter((el) => el.category === 'fruit');
+        setProducts(ray);
+      } else if (choose === 'Vegetables') {
+        ray = products.data.filter((el) => el.category === 'vegetables');
+        setProducts(ray);
       }
     } catch (err) {
       console.log(err);
@@ -82,6 +93,8 @@ const ListContextProvider: React.FC<IProvider> = ({ children }) => {
         setPage,
         handleView,
         getAllProduct,
+        option,
+        setOption,
       }}
     >
       {children}

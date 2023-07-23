@@ -5,6 +5,9 @@ import AllProducts from '../components/AllProducts';
 import Paginate from '../components/Pagination';
 import Introduce from '../components/Introduce';
 const Home = () => {
+  const handlePageChange = (newPage: number) => {
+    console.log('new page:', newPage);
+  };
   return (
     <DefaultLayout>
       <Box w="100%">
@@ -15,10 +18,9 @@ const Home = () => {
             <AbsoluteCenter bg="tomato" color="white" axis="both">
               <Paginate
                 page={0}
-                count={0}
-                pageSize={0}
-                fontWeight={'bold'}
-                borderRadius={'base'}
+                totalRows={0}
+                limit={0}
+                onPageChange={handlePageChange}
               />
             </AbsoluteCenter>
           </Box>
