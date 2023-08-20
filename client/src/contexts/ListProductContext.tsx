@@ -77,6 +77,8 @@ const ListContextProvider: React.FC<IProvider> = ({ children }) => {
       } else if (choose === 'Vegetables') {
         ray = products.data.filter((el) => el.category === 'vegetables');
         setProducts(ray);
+      } else {
+        setProducts(products.data);
       }
     } catch (err) {
       console.log(err);
