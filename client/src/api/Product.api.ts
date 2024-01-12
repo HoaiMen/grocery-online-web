@@ -6,7 +6,7 @@ export const getProducts = (
   page: string | number
   // limit: string | number
 ): Promise<AxiosResponse<Product[], any>> => {
-  return http.get('http://localhost:3000/data', {
+  return http.get('http://localhost:91/api/products', {
     params: {
       page: page,
       // limit: limit,
@@ -17,5 +17,5 @@ export const getProducts = (
 export const getProduct = (
   id: string | number
 ): Promise<AxiosResponse<Product, any>> => {
-  return http.get(`http://localhost:3000/data/${id}`);
+  return http.get(`http://localhost:91/api/products/${id}`);
 };

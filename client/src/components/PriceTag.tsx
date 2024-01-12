@@ -33,25 +33,12 @@ export function formatPrice(
 }
 
 export const PriceTag = (props: PriceTagProps) => {
-  const {
-    price,
-    currency,
-    salePrice,
-    rootProps,
-    priceProps,
-    salePriceProps,
-    colorr,
-  } = props;
+  const { price, currency, salePrice, rootProps, priceProps, colorr } = props;
   return (
     <HStack spacing="1" {...rootProps}>
       <Price isOnSale={!!salePrice} textProps={priceProps} colorz={colorr}>
         {formatPrice(price, { currency })}
       </Price>
-      {salePrice && (
-        <SalePrice {...salePriceProps}>
-          {formatPrice(salePrice, { currency })}
-        </SalePrice>
-      )}
     </HStack>
   );
 };
@@ -65,9 +52,6 @@ interface PriceProps {
 
 const Price = (props: PriceProps) => {
   const { isOnSale, children, textProps, colorz } = props;
-  const defaultColor = mode('gray.200', 'gray.200');
-  const onSaleColor = mode('gray.400', 'gray.700');
-  const color = isOnSale ? onSaleColor : defaultColor;
   return (
     <Text
       as="span"
@@ -80,12 +64,3 @@ const Price = (props: PriceProps) => {
     </Text>
   );
 };
-
-const SalePrice = (props: TextProps) => (
-  <Text
-    as="span"
-    fontWeight="semibold"
-    color={mode('gray.800', 'gray.100')}
-    {...props}
-  />
-);

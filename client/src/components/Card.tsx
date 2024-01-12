@@ -57,9 +57,6 @@ const CardProduct: React.FC<ICardProp> = ({
             {product.popular && <Status color="gray" lable="Popular" />}
           </Box>
           <Heading size="md">{product.name}</Heading>
-          <Text noOfLines={2} fontSize="sm">
-            {product.content}
-          </Text>
 
           <Rating rating={product.rating} numReviews={product.numReviews} />
           <Flex gap={2} alignItems="center">

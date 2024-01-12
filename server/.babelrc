@@ -1,0 +1,4 @@
+// để dịch javascript version mới có thể import thay vì const
+{
+  "presets": ["@babel/preset-env"]
+}

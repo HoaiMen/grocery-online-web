@@ -64,12 +64,13 @@ const ProductDetail = () => {
   const { handleAddCart } = useContext(CartContext);
   const [image, setImage] = useState('');
   const param = useParams();
+  console.log(param);
 
   const getProductDetail = async (id: string | number) => {
     try {
-      const product = await getProduct(id);
-      setProduct(product?.data);
-      setImage(product?.data.imageURL[0]);
+      const productt = await getProduct(id);
+      setProduct(productt.data);
+      setImage(productt?.data.imageURL[0]);
     } catch (err) {
       console.log(err);
     }

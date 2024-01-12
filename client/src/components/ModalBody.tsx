@@ -121,9 +121,6 @@ const BodyModal = (props: IBodyModalProps) => {
               </ListItem>
             </List>
           </Box>
-          <Button variant="solid" colorScheme="green" w="50%" mt="14">
-            Add to cart
-          </Button>
         </Box>
       </Box>
     </Container>

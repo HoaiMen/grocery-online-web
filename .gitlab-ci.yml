@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - apt-get update -qy # Update package list (for Ubuntu-based runners)
+  - apt-get install -y nodejs npm # Install Node.js and npm
+  - node -v # Print Node.js version for verification
+  - npm -v # Print npm version for verification
+
+build-job:
+  stage: build
+  script:
+    - echo "Bắt đầu quá trình xây dựng..."
+    - cd server # Di chuyển vào thư mục "backend"
+    - npm install # Cài đặt các module trong thư mục "backend"
+    - echo "Cài đặt hoàn thành."
+    - echo "Biên dịch TypeScript (nếu có)..."
+    - echo "Biên dịch hoàn thành."
+    - echo "Chuẩn bị tài liệu hoặc các tác vụ khác ở đây..."
+    - echo "Xây dựng hoàn thành."
+
+test-job:
+  stage: test
+  script:
+    - echo "Bắt đầu quá trình kiểm tra..."
+    - cd server # Di chuyển vào thư mục "backend"
+    - npm install
+    - npx mocha test/test_get_userData.js
+    - echo "Kiểm tra hoàn thành."
+
+deploy-job:
+  stage: deploy # Đặt stage cho job là deploy
+  script:
+    - echo "Bắt đầu quá trình triển khai..."
+    # Thêm các lệnh triển khai ở đây
+    - echo "Triển khai hoàn thành."

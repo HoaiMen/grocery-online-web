@@ -17,7 +17,7 @@ import { CartOrderSummary } from '../components/CartOder';
 import { CartContext } from '../contexts/CartContext';
 import { ModalContext, OverlayOne } from '../contexts/ModalContext';
 import { Product } from '../types/products.type';
-import BodyModal from '../components/BodyModal';
+import BodyModal from '../components/ModalBody';
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const { cart, setCart, amountInCart, setAmountInCart } =
@@ -106,9 +106,9 @@ const Cart = () => {
             spacing={{ base: '8', md: '16' }}
           >
             <Stack spacing={{ base: '8', md: '10' }} flex="2">
-              <Heading fontSize="2xl" fontWeight="extrabold">
+              {/* <Heading fontSize="2xl" fontWeight="extrabold">
                 Shopping Cart ({amountInCart} items)
-              </Heading>
+              </Heading> */}
 
               <Stack spacing="6">
                 {cart.map((item, index) => (
@@ -135,7 +135,7 @@ const Cart = () => {
               </Stack>
             </Stack>
 
-            <Flex direction="column" align="center" flex="1">
+            {/* <Flex direction="column" align="center" flex="1">
               <CartOrderSummary value={total} />
               <HStack mt="6" fontWeight="semibold">
                 <p>or</p>
@@ -143,7 +143,7 @@ const Cart = () => {
                   Continue shopping
                 </Link>
               </HStack>
-            </Flex>
+            </Flex> */}
           </Stack>
         </Box>
       </Container>
